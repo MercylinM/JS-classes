@@ -118,37 +118,40 @@ console.log("Urgency:", order1.categorizeUrgency());
 // In a startup’s employee review tool, design an Employee class with properties: id(number), name(string), performanceMetrics(object with keys 
 // like communication, efficiency, and reliability), and feedback(array of strings), then use prototypes to calculate an average score, classify 
 // performance level using control flow, and add new feedback based on conditions.
-function Employee(id, name, performanceMetrics, feedback) {
-    this.id = id;
-    this.name = name;
-    this.performanceMetrics = performanceMetrics;
-    this.feedback = feedback;
+class Employee {
+    constructor(id, name, performanceMetrics, feedback) {
+        this.id = id;
+        this.name = name;
+        this.performanceMetrics = performanceMetrics;
+        this.feedback = feedback;
+    }
+   
 }
 
-Employee.prototype.averageScore = function () {
-    const scores = Object.values(this.performanceMetrics);
-    return scores.reduce((sum, val) => sum + val, 0) / scores.length;
-};
-
-Employee.prototype.performanceLevel = function () {
-    const avg = this.averageScore();
-    if (avg >= 4.5) return "Outstanding";
-    else if (avg >= 3) return "Satisfactory";
-    else return "Needs Improvement";
-};
-
-Employee.prototype.addFeedback = function (comment) {
+Employee.prototype.averageScore = function() {
+        const scores = Object.values(this.performanceMetrics);
+        return scores.reduce((sum, val) => sum + val, 0) / scores.length;
+}
+Employee.prototype.performanceLevel = function() {
+    if (this.averageScore() >= 4.5) {
+        return "Outstanding";
+    }else if (this.averageScore() >= 3) {
+        return "Satisfactory";
+    }else {
+        return "Needs Improvement";
+    }
+}
+Employee.prototype.addFeedback = function(comment) {
     if (comment.length > 5) {
         this.feedback.push(comment);
     } else {
         console.log("Feedback too short.");
     }
-};
+}
 
-// Example
-const emp = new Employee(101, "Lucas", { communication: 5, efficiency: 4, reliability: 4.5 }, []);
-emp.addFeedback("Great work on the last sprint.");
-console.log("Performance:", emp.performanceLevel());
+const employee = new Employee(101, "Matthew", { communication: 5, efficiency: 4, reliability: 4.5 }, []);
+employee.addFeedback("Great work on the last sprint.");
+console.log("Performance:", employee.performanceLevel());
 
 
 // Build a simple e - learning system where a Course class has properties: title(string), instructor(object with name and expertise), and students
