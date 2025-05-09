@@ -152,6 +152,8 @@ Employee.prototype.addFeedback = function(comment) {
 const employee = new Employee(101, "Matthew", { communication: 5, efficiency: 4, reliability: 4.5 }, []);
 employee.addFeedback("Great work on the last sprint.");
 console.log("Performance:", employee.performanceLevel());
+console.log(employee.feedback);
+
 
 
 // Build a simple e - learning system where a Course class has properties: title(string), instructor(object with name and expertise), and students
