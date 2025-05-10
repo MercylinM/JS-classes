@@ -210,7 +210,7 @@ Course.prototype.instructorMessage = function() {
 
 
 
-const course = new Course("JavaScript Basics", { name: "Alice", expertise: "Frontend" }, [
+const course = new Course("JavaScript Basics", { name: "Hunter", expertise: "Frontend" }, [
     { name: "Mercylin", completionStatus: true },
     { name: "Njeri", completionStatus: true },
     { name: "Muthoni", completionStatus: true },
