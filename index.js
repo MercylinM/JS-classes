@@ -34,6 +34,9 @@ if (darkMode.canAccess(role)) {
             break;
     }
 }
+console.log('====================================');
+console.log();
+console.log('====================================');
 
 // In a freelancer time - tracking platform, create a TimeLog constructor function with properties: freelancerName(string), 
 // projectDetails(object with name and hourlyRate), and logs(array of objects with date, hoursWorked), then add prototype methods 
@@ -75,6 +78,9 @@ johnLog.addLog("2025-05-03", 30);
 
 console.log("Total Earnings:", johnLog.totalEarnings());
 johnLog.exceedsWeeklyHours(johnLog.logs);
+console.log('====================================');
+console.log();
+console.log('====================================');
 
 // You are developing a startup’s order management system where an Order constructor function should contain customer(object with name and email), 
 // items(array of objects with productName, quantity, and unitPrice), and status(string), then implement prototype methods to compute total cost, 
@@ -86,34 +92,41 @@ function Order(customer, items, status) {
 }
 
 Order.prototype.computeTotalCost = function () {
+    console.log(this.items);
     return this.items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0);
 };
 
-Order.prototype.updateStatus = function (isPaid) {
+Order.prototype.updateOrderStatus = function (isPaid) {
     this.status = isPaid ? "Paid" : "Pending";
 };
 
-Order.prototype.categorizeUrgency = function () {
+Order.prototype.orderUrgency = function () {
     const total = this.computeTotalCost();
     switch (true) {
         case total > 1000:
             return "High urgency";
+            break;
         case total > 500:
             return "Medium urgency";
+            break;
         default:
             return "Low urgency";
+            break;
     }
 };
 
 const order1 = new Order(
-    { name: "Jane Doe", email: "jane@example.com" },
-    [{ productName: "Monitor", quantity: 2, unitPrice: 300 }],
-    "Pending"
+    { name: "Mercylin", email: "mercylin@mail.com" },
+    [{ productName: "Monitor", quantity: 2, unitPrice: 300 }, { productName: "Laptop", quantity: 3, unitPrice: 200 }],
+    "Paid"
 );
 
-order1.updateStatus(true);
+order1.updateOrderStatus(true);
 console.log("Total:", order1.computeTotalCost());
-console.log("Urgency:", order1.categorizeUrgency());
+console.log("Urgency:", order1.orderUrgency());
+console.log('====================================');
+console.log();
+console.log('====================================');
 
 // In a startup’s employee review tool, design an Employee class with properties: id(number), name(string), performanceMetrics(object with keys 
 // like communication, efficiency, and reliability), and feedback(array of strings), then use prototypes to calculate an average score, classify 
@@ -152,44 +165,55 @@ Employee.prototype.addFeedback = function(comment) {
 const employee = new Employee(101, "Matthew", { communication: 5, efficiency: 4, reliability: 4.5 }, []);
 employee.addFeedback("Great work on the last sprint.");
 console.log("Performance:", employee.performanceLevel());
-console.log(employee.feedback);
+console.log(employee.feedback[0]);
+employee.addFeedback("Good");
 
-
+console.log('====================================');
+console.log();
+console.log('====================================');
 
 // Build a simple e - learning system where a Course class has properties: title(string), instructor(object with name and expertise), and students
 // (array of objects with name and completionStatus), then add prototype methods to return names of students who completed the course, count 
 // enrolled students by expertise area, and use control flow to output different messages for instructors with more or less than 5 students.
-function Course(title, instructor, students) {
-    this.title = title;
-    this.instructor = instructor;
-    this.students = students;
+class Course {
+    constructor(title, instructor, students) {
+        this.title = title;
+        this.instructor = instructor;
+        this.students = students;
+    }
 }
 
-Course.prototype.completedStudents = function () {
-    return this.students.filter(s => s.completionStatus).map(s => s.name);
-};
+Course.prototype.completedStudents = function() {
+    return this.students.filter(student => student.completionStatus).map(student => student.name);
+}
 
-Course.prototype.countByExpertise = function () {
-    return this.students.reduce((count, s) => {
+Course.prototype.countByExpertise = function() {
+
+    return this.students.reduce((count, student) => {
         const area = this.instructor.expertise;
-        if (!count[area]) count[area] = 0;
+        if (!count[area]) {
+            count[area] = 0;
+        }
         count[area]++;
         return count;
-    }, {});
-};
+    })
+}
 
-Course.prototype.instructorMessage = function () {
+Course.prototype.instructorMessage = function() {
     if (this.students.length > 5) {
         console.log(`Instructor ${this.instructor.name} has a large class.`);
     } else {
         console.log(`Instructor ${this.instructor.name} has a small, focused group.`);
     }
-};
+}
+
+
+
 
 const course = new Course("JavaScript Basics", { name: "Alice", expertise: "Frontend" }, [
-    { name: "Tom", completionStatus: true },
-    { name: "Sarah", completionStatus: false },
-    { name: "Liam", completionStatus: true },
+    { name: "Mercylin", completionStatus: true },
+    { name: "Njeri", completionStatus: true },
+    { name: "Muthoni", completionStatus: true },
 ]);
 
 console.log("Completed:", course.completedStudents());
